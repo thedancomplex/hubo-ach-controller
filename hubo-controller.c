@@ -131,11 +131,18 @@ void huboLoop() {
 		else {
 			ii++;
 		}
-
+		
 		deg = a*sin(2.0*pi*f*tt);
 		tt = tt+T;
 		
+		for(ii = 0; ii > 31; ii++) {
+			H->joint[ii].ref = 0.0;
+		}
+		
 		H->joint[RSP].ref = deg;
+		H->joint[LSP].ref = deg;
+		H->joint[RHP].ref = deg;
+		H->joint[LHP].ref = deg;
 		ach_put(&chan_num, H, sizeof(H));
 		
 		t.tv_nsec+=interval;
